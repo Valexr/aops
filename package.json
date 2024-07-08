@@ -1,0 +1,22 @@
+{
+    "name": "esbuild-svelte-ts",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "node esbuild",
+        "dev": "node esbuild --dev --spa",
+        "preview": "npx esbuild --servedir=public"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Valexr/esbuild-svelte-ts.git"
+    },
+    "devDependencies": {
+        "esbuild": "^0.20.2",
+        "esbuild-svelte": "^0.8.0",
+        "svelte": "^4.2.15",
+        "svelte-preprocess": "^5.1.4",
+        "typescript": "^5.4.5"
+    }
+}
