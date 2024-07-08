@@ -11,7 +11,7 @@
     const options = {
         // root: null,
         // rootMargin: '200px',
-        threshold: 0.5,
+        threshold: 1,
         anchor: 0.5,
     };
 
@@ -40,9 +40,33 @@
     <section></section>
     <div
         id="top"
-        use:aops={options}
-        use:aops={options}
+        style="height: 50px;"
         data-aos-anim="fade-up"
+        use:aops={options}
+    ></div>
+    <div
+        id="top"
+        style="height: 50px;"
+        data-aos-anim="fade-up"
+        use:aops={options}
+    ></div>
+    <div
+        id="top"
+        style="height: 50px;"
+        data-aos-anim="fade-up"
+        use:aops={options}
+    ></div>
+    <div
+        id="top"
+        style="height: 50px;"
+        data-aos-anim="fade-up"
+        use:aops={options}
+    ></div>
+    <div
+        id="top"
+        style="height: 50px;"
+        data-aos-anim="fade-up"
+        use:aops={options}
     ></div>
 
     {#each { length: 3 } as it, i}
@@ -51,7 +75,7 @@
         </section>
     {/each}
 
-    <div id="bottom" use:aops={options} data-aos-anim="fade-down"></div>
+    <div id="bottom" data-aos-anim="zoom-in" use:aops={options}></div>
     <section></section>
 </main>
 
@@ -62,27 +86,6 @@
 <style>
     @import "app.css";
 
-    :global([data-aos="h"][data-aos-anim^="fade"]) {
-        opacity: 0;
-        transition-property: opacity, transform;
-        will-change: opacity, transform;
-    }
-    :global([data-aos="h"][data-aos-anim="fade-up"]) {
-        transform: translate3d(0, 100px, 0);
-    }
-    :global([data-aos="h"][data-aos-anim="fade-down"]) {
-        transform: translate3d(0, -100px, 0);
-    }
-    :global([data-aos="v"][data-aos-anim^="fade"]) {
-        opacity: 1;
-        transform: translateZ(0);
-    }
-    :global([data-aos-anim^="fade"]) {
-        transition-duration: 500ms;
-    }
-    :global([data-aos="v"]) {
-        /* background: red !important; */
-    }
     section {
         height: 100vh;
         position: relative;

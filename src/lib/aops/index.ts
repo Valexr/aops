@@ -4,32 +4,31 @@ import type { Options } from '$types'
 const intersected = new Set<HTMLElement>()
 
 export default function (element: HTMLElement, options: Partial<Options>) {
-
+    intersected.add(element)
     window.onscroll = (e) => {
 
         for (const [key, entry] of intersected.entries()) {
             const anchored = window.scrollY * (options.anchor || 0)
             const { offsetTop: parentTop, offsetWidth: parentOffset } = entry.offsetParent as HTMLElement
-            const pos = (window.scrollY - anchored) - parentTop * (options.anchor || 0) + entry.offsetHeight
-            const animated = window.scrollY >= anchored
-            const scroll = window.scrollY - anchored
-            const detail = clamp(0, Math.trunc(pos), parentOffset - entry.offsetWidth)
+            const top = (entry.offsetTop || parentTop) * (options.anchor || 0)
+            const height = entry.offsetHeight
+            const pos = window.scrollY - top + height
+            const detail = clamp(0, Math.trunc(pos), window.innerWidth)
 
             console.log(entry.id, detail, anchored)
 
-            if (detail) {
-                entry.dispatchEvent(new CustomEvent('scroll', { detail }))
-                entry.dataset.aos = detail >= anchored ? 'v' : 'h'
-            }
+            entry.dispatchEvent(new CustomEvent('scroll', { detail }))
+            entry.dataset.aos = detail >= anchored ? 'v' : 'h'
         }
     }
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             const target = entry.target as HTMLElement
             if (entry.isIntersecting) {
-                intersected.add(target)
+                console.log(entry)
+                // intersected.add(target)
             } else {
-                intersected.delete(target)
+                // intersected.delete(target)
             }
             target.style.background = intersected.has(target) ? 'yellow' : ''
         });

@@ -11,7 +11,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Valexr/esbuild-svelte-ts.git"
+        "url": "https://github.com/Valexr/aops.git"
     },
     "devDependencies": {
         "esbuild": "^0.23.0",
