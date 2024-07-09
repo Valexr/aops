@@ -1,49 +1,55 @@
-import { clamp, offset } from './utils'
+import { clamp } from './utils'
 import type { Options } from '$types'
 
 const intersected = new Set<HTMLElement>()
 
-export default function (element: HTMLElement, options: Partial<Options>) {
-    intersected.add(element)
+export default function (target: HTMLElement, options: Partial<Options>) {
+    intersected.add(target)
+
     window.onscroll = (e) => {
 
-        for (const [key, entry] of intersected.entries()) {
-            const anchored = window.scrollY * (options.anchor || 0)
-            const { offsetTop: parentTop, offsetWidth: parentOffset } = entry.offsetParent as HTMLElement
-            const top = (entry.offsetTop || parentTop) * (options.anchor || 0)
-            const height = entry.offsetHeight
-            const pos = window.scrollY - top + height
-            const detail = clamp(0, Math.trunc(pos), window.innerWidth)
+        for (const [_, target] of intersected.entries()) {
 
-            console.log(entry.id, detail, anchored)
+            const { innerHeight, scrollY } = window
+            const { offsetTop: targetTop, offsetHeight, offsetWidth: targetWidth, offsetParent } = target
+            const { offsetTop: parentTop, offsetWidth: parentWidth } = offsetParent as HTMLElement
 
-            entry.dispatchEvent(new CustomEvent('scroll', { detail }))
-            entry.dataset.aos = detail >= anchored ? 'v' : 'h'
+            const top = targetTop || parentTop
+            const anchor = 1 - (options.anchor || 0)
+
+            const targetHeight = offsetHeight * anchor
+            const windowHeight = innerHeight * anchor
+
+            const scroll = Math.trunc(scrollY - (top - windowHeight + targetHeight))
+            const pos = clamp(-targetWidth, scroll, parentWidth)
+
+            target.dispatchEvent(new CustomEvent('scroll', { detail: pos }))
+            target.dataset.aops = pos >= 0 ? 'v' : 'h'
         }
     }
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const target = entry.target as HTMLElement
-            if (entry.isIntersecting) {
-                console.log(entry)
-                // intersected.add(target)
-            } else {
-                // intersected.delete(target)
-            }
-            target.style.background = intersected.has(target) ? 'yellow' : ''
-        });
-    }, {
-        ...options,
-        threshold: options.threshold || 1.0,
-        // root: options.root || element.offsetParent,
-        // rootMargin: options.rootMargin || element.offsetHeight + 'px',
-    });
+    // const observer = new IntersectionObserver((entries) => {
+    //     entries.forEach(entry => {
+    //         const target = entry.target as HTMLElement
+    //         if (entry.isIntersecting) {
+    //             console.log(entry)
+    //             // intersected.add(target)
+    //         } else {
+    //             // intersected.delete(target)
+    //         }
+    //         target.style.background = intersected.has(target) ? 'yellow' : ''
+    //     });
+    // }, {
+    //     ...options,
+    //     threshold: options.threshold || 1.0,
+    //     // root: options.root || element.offsetParent,
+    //     // rootMargin: options.rootMargin || element.offsetHeight + 'px',
+    // });
 
-    observer.observe(element);
+    // observer.observe(element);
 
-    return {
-        destroy() {
-            observer.disconnect();
-        }
-    }
+    // return {
+    //     destroy() {
+    //         observer.disconnect();
+    //     }
+    // }
 }

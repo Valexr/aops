@@ -21,6 +21,18 @@
             e.target.style.transform = `translate(${e.detail}px)`;
         }
     }
+
+    const fades = [
+        "fade-up",
+        "fade-down",
+        "fade-right",
+        "fade-left",
+        "fade-up-right",
+        "fade-up-left",
+        "fade-down-right",
+        "fade-down-left",
+    ];
+    const slides = ["slide-up", "slide-down", "slide-right", "slide-left"];
 </script>
 
 <svelte:head>
@@ -28,7 +40,17 @@
 </svelte:head>
 
 <header>
-    <button>Some</button>
+    <!-- <button>Some</button> -->
+    <label for="">
+        Anchor
+        <input
+            type="number"
+            min="0"
+            max="1"
+            step="0.01"
+            bind:value={options.anchor}
+        />
+    </label>
     <h1>
         <Gh {repository} />
         {name}
@@ -37,54 +59,45 @@
 </header>
 
 <main>
-    <section></section>
-    <div
-        id="top"
-        style="height: 50px;"
-        data-aos-anim="fade-up"
-        use:aops={options}
-    ></div>
-    <div
-        id="top"
-        style="height: 50px;"
-        data-aos-anim="fade-up"
-        use:aops={options}
-    ></div>
-    <div
-        id="top"
-        style="height: 50px;"
-        data-aos-anim="fade-up"
-        use:aops={options}
-    ></div>
-    <div
-        id="top"
-        style="height: 50px;"
-        data-aos-anim="fade-up"
-        use:aops={options}
-    ></div>
-    <div
-        id="top"
-        style="height: 50px;"
-        data-aos-anim="fade-up"
-        use:aops={options}
-    ></div>
+    <section>
+        <h3>Scroll down</h3>
+        <h1>↓</h1>
+    </section>
+
+    {#each fades as fade}
+        <div
+            id={fade}
+            style="height: 50px;"
+            data-aops-anim={fade}
+            use:aops={options}
+        />
+    {/each}
 
     {#each { length: 3 } as it, i}
         <section class="fixed">
-            <div id={String(i)} use:aops={options} on:scroll={scroll}></div>
+            <div use:aops={options} on:scroll={scroll}></div>
         </section>
     {/each}
 
-    <div id="bottom" data-aos-anim="zoom-in" use:aops={options}></div>
+    <div id="bottom" use:aops={options} on:scroll={scroll}></div>
+
+    {#each slides as slide}
+        <div id={slide} data-aops-anim={slide} use:aops={options}></div>
+    {/each}
+
     <section></section>
 </main>
 
 <footer>
-    <p>Footer</p>
+    <p>© {new Date().getFullYear()}</p>
 </footer>
 
 <style>
     @import "app.css";
+
+    :global(body) {
+        overflow-x: hidden;
+    }
 
     section {
         height: 100vh;
@@ -104,17 +117,19 @@
         background: whitesmoke;
         position: relative;
         will-change: transform;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     section div {
         position: absolute;
     }
     div::before {
         content: attr(data-pos);
+        position: absolute;
         background: red;
         font-size: 2em;
-        position: absolute;
-        top: 50%;
-        margin-top: -24px;
     }
     div::after {
         content: attr(id);
