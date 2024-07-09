@@ -12,7 +12,7 @@
         // root: null,
         // rootMargin: '200px',
         threshold: 1,
-        anchor: 0.5,
+        anchor: 0,
     };
 
     function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
@@ -40,22 +40,10 @@
 </svelte:head>
 
 <header>
-    <!-- <button>Some</button> -->
-    <label for="">
-        Anchor
-        <input
-            type="number"
-            min="0"
-            max="1"
-            step="0.01"
-            bind:value={options.anchor}
-        />
-    </label>
     <h1>
         <Gh {repository} />
         {name}
     </h1>
-    <button>Else</button>
 </header>
 
 <main>
@@ -85,11 +73,22 @@
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
     {/each}
 
-    <section></section>
+    <section />
 </main>
 
 <footer>
-    <p>© {new Date().getFullYear()}</p>
+    <p>
+        <label for="">
+            Anchor
+            <input
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                bind:value={options.anchor}
+            />
+        </label>
+    </p>
 </footer>
 
 <style>
@@ -97,6 +96,10 @@
 
     :global(body) {
         overflow-x: hidden;
+    }
+
+    h1 {
+        text-align: center;
     }
 
     section {
@@ -116,7 +119,7 @@
         width: 200px;
         background: whitesmoke;
         position: relative;
-        will-change: transform;
+        /* will-change: transform; */
         margin: auto;
         display: flex;
         align-items: center;

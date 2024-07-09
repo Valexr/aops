@@ -8,5 +8,9 @@ export type Options = {
     root: Element | null,
     rootMargin: string | null,
     threshold: number,
-    anchor: number
+    anchor: number,
+    animation: string,
+    duration: number,
+    delay: number,
+    easing: string
 } & IntersectionObserverInit

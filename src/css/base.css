@@ -14,8 +14,9 @@ body {
 }
 
 header {
-    display: flex;
+    /* display: flex; */
     align-items: center;
+    text-align: center;
     justify-content: space-between;
     padding: 1rem;
     top: 0;
