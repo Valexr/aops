@@ -105,10 +105,6 @@
 <style>
     @import "app.css";
 
-    h1 {
-        text-align: center;
-    }
-
     section {
         height: 100vh;
         position: relative;
