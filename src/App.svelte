@@ -1,6 +1,8 @@
 <script lang="ts" context="module">
     import aops from "$lib/aops/";
     import Gh from "$lib/components/Gh.svelte";
+
+    import aop from "../dist";
     import type { Name, Repository } from "$types";
 </script>
 
@@ -13,7 +15,7 @@
         // rootMargin: '200px',
         // threshold: 1,
         anchor: 0.5,
-        offset: 1,
+        offset: 0.5,
     };
 
     function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
@@ -57,7 +59,7 @@
             id={fade}
             style="height: 50px;"
             data-aops-anim={fade}
-            use:aops={options}
+            use:aop={options}
         />
     {/each}
 

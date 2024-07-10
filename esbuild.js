@@ -1,13 +1,15 @@
 import { build, context } from 'esbuild';
 import svelte from 'esbuild-svelte';
-import preprocess from 'svelte-preprocess';
+import { sveltePreprocess } from 'svelte-preprocess';
 import rm from './env/rm.js';
 import log from './env/log.js';
+import copy from './env/copy.js';
 import meta from './env/meta.js';
 import proxy from './env/proxy.js';
 
 const DEV = process.argv.includes('--dev');
 const SPA = process.argv.includes('--spa');
+const DIST = process.argv.includes('--dist');
 
 const svelteOptions = {
     compilerOptions: {
@@ -16,7 +18,7 @@ const svelteOptions = {
         immutable: true
     },
     preprocess: [
-        preprocess({
+        sveltePreprocess({
             sourceMap: DEV,
             typescript: true,
         }),
@@ -51,6 +53,16 @@ if (DEV) {
 
     process.on('SIGTERM', ctx.dispose);
     process.on("exit", ctx.dispose);
+} else if (DIST) {
+    await rm(['dist']);
+    await build({
+        entryPoints: ['src/lib/aops/index.js'],
+        outdir: './dist',
+        format: 'esm',
+        minify: true,
+        bundle: true,
+        plugins: [copy([['src/lib/aops/assets', 'dist']])]
+    });
 } else {
     await meta(await build(buildOptions));
 }
