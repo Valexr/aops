@@ -2,7 +2,6 @@
     "name": "aops",
     "description": "Animate on Page Scroll",
     "version": "0.1.0",
-    "private": true,
     "type": "module",
     "types": "dist/index.d.ts",
     "files": [
@@ -13,7 +12,7 @@
         "dev": "node esbuild --dev --spa",
         "preview": "npx esbuild --servedir=public",
         "dist": "node esbuild --dist",
-        "pub": "npm run dist && npm run publish"
+        "pub": "npm run dist && npm publish"
     },
     "repository": {
         "type": "git",
