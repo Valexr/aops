@@ -49,8 +49,7 @@
 
 <main>
     <section>
-        <h3>Scroll down</h3>
-        <h1>↓</h1>
+        <h2>Scroll down <br /> ↓</h2>
     </section>
 
     {#each fades as fade}
