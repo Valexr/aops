@@ -9,6 +9,7 @@ export type Options = {
     rootMargin: string | null,
     threshold: number,
     anchor: number,
+    offset: number,
     animation: string,
     duration: number,
     delay: number,

@@ -10,21 +10,26 @@ export default function (target: HTMLElement, options: Partial<Options>) {
 
         for (const [_, target] of intersected.entries()) {
 
-            const { innerHeight, scrollY } = window
-            const { offsetTop: targetTop, offsetHeight, offsetWidth: targetWidth, offsetParent } = target
+            const { innerHeight, innerWidth, scrollY } = window
+            const { offsetTop: targetTop, offsetLeft: targetLeft, offsetHeight, offsetWidth, offsetParent } = target
             const { offsetTop: parentTop, offsetWidth: parentWidth } = offsetParent as HTMLElement
 
             const top = targetTop || parentTop
             const anchor = 1 - (options.anchor || 0)
+            const offset = options.offset || 0
 
             const targetHeight = offsetHeight * anchor
+            const targetWidth = offsetWidth * offset
             const windowHeight = innerHeight * anchor
+            const windowWidth = innerWidth - targetLeft
 
             const scroll = Math.trunc(scrollY - (top - windowHeight + targetHeight))
-            const pos = clamp(-targetWidth, scroll, parentWidth)
+            const position = clamp(0 - targetWidth, scroll, windowWidth + targetWidth)
 
-            target.dispatchEvent(new CustomEvent('scroll', { detail: pos }))
-            target.dataset.aops = pos >= 0 ? 'v' : 'h'
+            if (target.id === 'test') console.log(windowWidth, targetLeft, position)
+
+            target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
+            target.dataset.aops = position > 0 ? 'v' : 'h'
         }
     }
     // const observer = new IntersectionObserver((entries) => {

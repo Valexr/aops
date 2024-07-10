@@ -11,8 +11,9 @@
     const options = {
         // root: null,
         // rootMargin: '200px',
-        threshold: 1,
-        anchor: 0,
+        // threshold: 1,
+        anchor: 0.5,
+        offset: 1,
     };
 
     function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
@@ -67,7 +68,7 @@
         </section>
     {/each}
 
-    <div id="bottom" use:aops={options} on:scroll={scroll}></div>
+    <div id="test" use:aops={options} on:scroll={scroll}></div>
 
     {#each slides as slide}
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
@@ -119,11 +120,11 @@
         width: 200px;
         background: whitesmoke;
         position: relative;
-        /* will-change: transform; */
         margin: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+        /* will-change: transform; */
     }
     section div {
         position: absolute;
