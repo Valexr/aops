@@ -41,6 +41,26 @@ const buildOptions = {
     mainFields: ['svelte', 'module', 'main'],
 };
 
+const distOptions = {
+    plugins: [copy([['src/lib/aops/assets', 'dist']])],
+    entryPoints: ['src/lib/aops/index.js'],
+    minify: true,
+    bundle: true,
+};
+
+const builds = {
+    cjs: {
+        outfile: 'dist/index.cjs',
+    },
+    esm: {
+        outfile: 'dist/index.mjs',
+    },
+    iife: {
+        outfile: 'dist/index.js',
+        globalName: 'AOPS',
+    },
+};
+
 await rm(['public/build']);
 
 if (DEV) {
@@ -55,14 +75,14 @@ if (DEV) {
     process.on("exit", ctx.dispose);
 } else if (DIST) {
     await rm(['dist']);
-    await build({
-        entryPoints: ['src/lib/aops/index.js'],
-        outdir: './dist',
-        format: 'esm',
-        minify: true,
-        bundle: true,
-        plugins: [copy([['src/lib/aops/assets', 'dist']])]
-    });
+
+    for (const key in builds) {
+        await build({
+            ...distOptions,
+            ...builds[key],
+            format: key,
+        });
+    }
 } else {
     await meta(await build(buildOptions));
 }

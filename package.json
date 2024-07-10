@@ -1,18 +1,22 @@
 {
-    "name": "aops",
+    "name": "@valexr/aops",
     "description": "Animate on Page Scroll",
-    "version": "0.1.0",
-    "type": "module",
+    "version": "0.1.1",
+    "unpkg": "dist/index.js",
+    "jsdelivr": "dist/index.js",
+    "main": "dist/index.cjs",
+    "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
     "files": [
         "dist/*"
     ],
+    "type": "module",
     "scripts": {
         "build": "node esbuild",
         "dev": "node esbuild --dev --spa",
         "preview": "npx esbuild --servedir=public",
         "dist": "node esbuild --dist",
-        "pub": "npm run dist && npm publish"
+        "pub": "npm run dist && npm publish --access=public"
     },
     "repository": {
         "type": "git",
