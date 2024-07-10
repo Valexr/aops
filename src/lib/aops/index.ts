@@ -24,9 +24,9 @@ export default function (target: HTMLElement, options: Partial<Options>) {
             const windowWidth = innerWidth - targetLeft
 
             const scroll = Math.trunc(scrollY - (top - windowHeight + targetHeight))
-            const position = clamp(0 - targetWidth, scroll, windowWidth + targetWidth)
+            const position = clamp(-targetWidth, scroll, windowWidth + targetWidth)
 
-            if (target.id === 'test') console.log(windowWidth, targetLeft, position)
+            // if (target.id === 'test') console.log(windowWidth, targetLeft, position)
 
             target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
             target.dataset.aops = position > 0 ? 'v' : 'h'

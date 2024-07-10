@@ -68,7 +68,7 @@
         </section>
     {/each}
 
-    <div id="test" use:aops={options} on:scroll={scroll}></div>
+    <div use:aops={options} on:scroll={scroll}></div>
 
     {#each slides as slide}
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
@@ -87,6 +87,18 @@
                 max="1"
                 step="0.01"
                 bind:value={options.anchor}
+            />
+        </label>
+    </p>
+    <p>
+        <label for="">
+            Offset
+            <input
+                type="number"
+                min="0"
+                max="1"
+                step="0.01"
+                bind:value={options.offset}
             />
         </label>
     </p>

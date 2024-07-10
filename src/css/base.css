@@ -23,6 +23,9 @@ header {
 }
 
 footer {
+    display: flex;
+    gap: 1em;
+    justify-content: center;
     bottom: 0;
 }
 
