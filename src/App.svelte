@@ -119,6 +119,7 @@
         height: 100vh;
         position: relative;
         box-sizing: border-box;
+        place-content: center;
     }
     section.fixed {
         height: 202px;
