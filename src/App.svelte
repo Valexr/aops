@@ -2,7 +2,6 @@
     import aops from "$lib/aops/";
     import Gh from "$lib/components/Gh.svelte";
 
-    import aop from "../dist";
     import type { Name, Repository } from "$types";
 </script>
 
@@ -55,12 +54,7 @@
     </section>
 
     {#each fades as fade}
-        <div
-            id={fade}
-            style="height: 50px;"
-            data-aops-anim={fade}
-            use:aop={options}
-        />
+        <div id={fade} data-aops-anim={fade} use:aops={options} />
     {/each}
 
     {#each { length: 3 } as it, i}
