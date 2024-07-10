@@ -13,7 +13,7 @@
         "dev": "node esbuild --dev --spa",
         "preview": "npx esbuild --servedir=public",
         "dist": "node esbuild --dist",
-        "pub": "npm run publish"
+        "pub": "npm run dist && npm run publish"
     },
     "repository": {
         "type": "git",
