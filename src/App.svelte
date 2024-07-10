@@ -78,7 +78,7 @@
 </main>
 
 <footer>
-    <p>
+    <form action="">
         <label for="">
             Anchor
             <input
@@ -89,8 +89,6 @@
                 bind:value={options.anchor}
             />
         </label>
-    </p>
-    <p>
         <label for="">
             Offset
             <input
@@ -101,15 +99,11 @@
                 bind:value={options.offset}
             />
         </label>
-    </p>
+    </form>
 </footer>
 
 <style>
     @import "app.css";
-
-    :global(body) {
-        overflow-x: hidden;
-    }
 
     h1 {
         text-align: center;
@@ -137,7 +131,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        /* will-change: transform; */
+        will-change: transform;
     }
     section div {
         position: absolute;
@@ -152,8 +146,5 @@
         content: attr(id);
         position: absolute;
         color: red;
-    }
-    :global(div.intersected) {
-        background: red;
     }
 </style>

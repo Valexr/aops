@@ -1,6 +1,7 @@
 body,
 html {
     min-height: 100%;
+    overflow-x: hidden;
 }
 
 body {
@@ -13,26 +14,25 @@ body {
     background-color: var(--light);
 }
 
-header {
-    /* display: flex; */
-    align-items: center;
-    text-align: center;
-    justify-content: space-between;
-    padding: 1rem;
-    top: 0;
-}
-
-footer {
-    display: flex;
-    gap: 1em;
-    justify-content: center;
-    bottom: 0;
-}
-
 header,
 footer {
-    position: sticky;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: fixed;
+    padding: 1rem;
     z-index: 1;
+    gap: 1em;
+    inset: 0;
+}
+
+header {
+    bottom: auto;
+}
+
+footer {
+    top: auto;
 }
 
 header>* {
