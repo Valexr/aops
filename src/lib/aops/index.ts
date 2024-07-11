@@ -6,7 +6,7 @@ const intersected = new Set<HTMLElement>()
 export default function (node: HTMLElement, options?: Partial<Options>) {
     intersected.add(node)
 
-    window.addEventListener('scroll', () => requestAnimationFrame(aops))
+    window.addEventListener('scroll', aops)
 
     function aops() {
 
