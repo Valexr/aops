@@ -1,3 +1,8 @@
+body,
+html {
+    overflow-x: hidden;
+}
+
 [data-aops] {
     transition-duration: var(--aops-duration, 500ms);
     transition-delay: var(--aops-delay)

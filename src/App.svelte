@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
     import aops from "$lib/aops/";
+    // import aops from "@valexr/aops";
     import Gh from "$lib/components/Gh.svelte";
 
     import type { Name, Repository } from "$types";
@@ -117,6 +118,8 @@
 
 <style>
     @import "app.css";
+    @import "src/lib/aops/assets/index.css";
+    /* @import "@valexr/aops/dist/index.css"; */
 
     section {
         height: 100vh;
