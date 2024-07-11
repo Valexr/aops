@@ -53,9 +53,19 @@
         <h2>Scroll down <br /> ↓</h2>
     </section>
 
-    {#each fades as fade}
-        <div id={fade} data-aops-anim={fade} use:aops={options} />
-    {/each}
+    <ul>
+        {#each fades as fade}
+            <li id={fade} data-aops-anim={fade} use:aops={options} />
+        {/each}
+    </ul>
+
+    <img
+        width="500"
+        use:aops={options}
+        data-aops-anim="zoom-in"
+        alt="big"
+        src="https://images.unsplash.com/photo-1542614228-14dcbfac0b2a?w=1200"
+    />
 
     {#each { length: 3 } as it, i}
         <section class="fixed">
@@ -64,6 +74,14 @@
     {/each}
 
     <div use:aops={options} on:scroll={scroll}></div>
+
+    <img
+        width="500"
+        use:aops={options}
+        data-aops-anim="zoom-out"
+        alt="big"
+        src="https://images.unsplash.com/photo-1547433171-98eb433cc6ff?w=1072"
+    />
 
     {#each slides as slide}
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
@@ -126,6 +144,7 @@
     }
     section div {
         position: absolute;
+        top: 0;
     }
     div::before {
         content: attr(data-pos);
@@ -134,6 +153,33 @@
         font-size: 2em;
     }
     div::after {
+        content: attr(id);
+        position: absolute;
+        color: red;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    ul li {
+        width: 200px;
+        height: 200px;
+        background: whitesmoke;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        /* will-change: transform; */
+    }
+    ul li::before {
+        content: attr(data-pos);
+        position: absolute;
+        background: red;
+        font-size: 2em;
+    }
+    ul li::after {
         content: attr(id);
         position: absolute;
         color: red;
