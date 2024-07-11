@@ -1,4 +1,4 @@
-import { clamp, debounce, lerp } from './utils'
+import { clamp } from './utils'
 import type { Options } from '$types'
 
 const intersected = new Set<HTMLElement>()
