@@ -50,9 +50,7 @@
 </header>
 
 <main>
-    <section>
-        <h2>Scroll down <br /> ↓</h2>
-    </section>
+    <section><h2>Scroll<br />↓</h2></section>
 
     <ul>
         {#each fades as fade}
@@ -88,7 +86,7 @@
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
     {/each}
 
-    <section />
+    <section><h2>↑<br />Scroll</h2></section>
 </main>
 
 <footer>

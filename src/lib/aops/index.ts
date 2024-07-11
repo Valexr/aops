@@ -55,6 +55,7 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
 
     return {
         destroy() {
+            intersected.delete(node)
             window.removeEventListener('scroll', aops)
             // observer.disconnect();
         }
