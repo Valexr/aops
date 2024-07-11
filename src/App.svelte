@@ -13,8 +13,8 @@
         // root: null,
         // rootMargin: '200px',
         // threshold: 1,
-        anchor: 0.5,
-        offset: 0.5,
+        anchor: 0,
+        offset: 0,
     };
 
     function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
@@ -73,7 +73,7 @@
         </section>
     {/each}
 
-    <div use:aops={options} on:scroll={scroll}></div>
+    <div id="test" use:aops={options} on:scroll={scroll}></div>
 
     <img
         width="500"
@@ -106,8 +106,8 @@
             Offset
             <input
                 type="number"
-                min="0"
-                max="1"
+                min="-1"
+                max="0"
                 step="0.01"
                 bind:value={options.offset}
             />
@@ -125,7 +125,7 @@
         place-content: center;
     }
     section.fixed {
-        height: 202px;
+        height: 200px;
         margin: 1em 0;
         border: 1px dashed;
         overflow: hidden;
@@ -145,6 +145,7 @@
     section div {
         position: absolute;
         top: 0;
+        /* right: 0; */
     }
     div::before {
         content: attr(data-pos);
@@ -183,5 +184,9 @@
         content: attr(id);
         position: absolute;
         color: red;
+    }
+
+    img {
+        margin: 1em;
     }
 </style>

@@ -16,3 +16,14 @@ export function offset(root: HTMLElement, target: HTMLElement, anchor?: string) 
     }
     return offset;
 };
+
+export function lerp(start: number, end: number, t: number): number {
+    return start * (1 - t) + end * t;
+}
+
+export function debounce(cb: (...args: any) => void, ms = 0, timer?: NodeJS.Timeout) {
+    return (...args: any) => {
+        clearTimeout(timer);
+        timer = setTimeout(cb, ms, ...args);
+    }
+}

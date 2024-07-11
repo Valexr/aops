@@ -1,12 +1,12 @@
-import { clamp } from './utils'
+import { clamp, debounce, lerp } from './utils'
 import type { Options } from '$types'
 
 const intersected = new Set<HTMLElement>()
 
-export default function (target: HTMLElement, options?: Partial<Options>) {
-    intersected.add(target)
+export default function (node: HTMLElement, options?: Partial<Options>) {
+    intersected.add(node)
 
-    window.addEventListener('scroll', aops)
+    window.addEventListener('scroll', () => requestAnimationFrame(aops))
 
     function aops() {
 
@@ -19,17 +19,17 @@ export default function (target: HTMLElement, options?: Partial<Options>) {
             const anchor = 1 - (options?.anchor || 0)
             const offset = options?.offset || 0
 
-            const targetHeight = offsetHeight * anchor
-            const targetWidth = offsetWidth * offset
-
             const windowHeight = innerHeight * anchor
             const windowWidth = innerWidth - targetLeft
 
+            const targetHeight = offsetHeight * anchor
+            const targetWidth = offsetWidth * offset
+
             const scroll = Math.trunc(scrollY - (top - windowHeight + targetHeight))
-            const position = clamp(-targetWidth, scroll, windowWidth - targetWidth)
+            const position = clamp(targetWidth, scroll, windowWidth - (offset ? targetWidth : offsetWidth))
 
             target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
-            target.dataset.aops = position > 0 ? 'v' : 'h'
+            target.dataset.aops = position > targetWidth ? 'v' : 'h'
         }
     }
 
