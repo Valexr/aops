@@ -1,7 +1,7 @@
 {
     "name": "@valexr/aops",
     "description": "Animate on Page Scroll",
-    "version": "0.1.6",
+    "version": "0.2.0",
     "unpkg": "dist/index.js",
     "jsdelivr": "dist/index.js",
     "main": "dist/index.cjs",
