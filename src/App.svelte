@@ -11,7 +11,7 @@
     export let repository: Repository;
 
     const options = {
-        // root: null,
+        // root: window,
         // rootMargin: '200px',
         // threshold: 1,
         anchor: 0,

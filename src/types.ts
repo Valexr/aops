@@ -5,7 +5,7 @@ export type Repository = {
 }
 
 export type Options = {
-    root: Element | null,
+    root: Window & HTMLElement | null,
     rootMargin: string | null,
     threshold: number,
     anchor: number,
@@ -14,4 +14,4 @@ export type Options = {
     duration: number,
     delay: number,
     easing: string
-} & IntersectionObserverInit
+} 

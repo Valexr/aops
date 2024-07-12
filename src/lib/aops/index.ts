@@ -1,32 +1,39 @@
-import { clamp } from './utils'
+import { clamp, debounce } from './utils'
 import type { Options } from '$types'
 
 const intersected = new Set<HTMLElement>()
 
 export default function (node: HTMLElement, options?: Partial<Options>) {
+    let root: (Window & HTMLElement) | (Window & typeof globalThis) = options?.root || window
+
     intersected.add(node)
 
-    window.addEventListener('scroll', aops)
+    update(options)
+
+    function update(options?: Partial<Options>) {
+        root = options?.root || window
+        root.addEventListener('scroll', aops)
+    }
 
     function aops() {
+        const { innerHeight: wH, innerWidth: wW, offsetHeight: rH, offsetWidth: rW, scrollY, scrollTop } = root
 
         for (const [_, target] of intersected.entries()) {
-            const { innerHeight, innerWidth, scrollY } = window
             const { offsetTop: targetTop, offsetLeft: targetLeft, offsetHeight, offsetWidth } = target
             const { offsetTop: parentTop } = target.offsetParent as HTMLElement
 
-            const top = targetTop || parentTop
+            const top = Math.max(targetTop, parentTop)
             const anchor = 1 - (options?.anchor || 0)
             const offset = options?.offset || 0
 
-            const windowHeight = innerHeight * anchor
-            const windowWidth = innerWidth - targetLeft
+            const rootHeight = (wH || rH) * anchor
+            const rootWidth = (wW || rW) - targetLeft
 
             const targetHeight = offsetHeight * anchor
             const targetWidth = offsetWidth * offset
 
-            const scroll = Math.trunc(scrollY - (top - windowHeight + targetHeight))
-            const position = clamp(targetWidth, scroll, windowWidth - (offset ? targetWidth : offsetWidth))
+            const scroll = (scrollY || scrollTop) - (top - rootHeight + targetHeight)
+            const position = clamp(targetWidth, scroll, rootWidth - (offset ? targetWidth : offsetWidth))
 
             target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
             target.dataset.aops = position > targetWidth ? 'v' : 'h'
@@ -54,9 +61,10 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
     // observer.observe(element);
 
     return {
+        update,
         destroy() {
             intersected.delete(node)
-            window.removeEventListener('scroll', aops)
+            root.removeEventListener('scroll', aops)
             // observer.disconnect();
         }
     }
