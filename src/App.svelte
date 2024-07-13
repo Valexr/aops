@@ -1,7 +1,6 @@
 <script lang="ts" context="module">
     import aops from "$lib/aops/";
     // import aops from "@valexr/aops";
-    import Gh from "$lib/components/Gh.svelte";
 
     import type { Name, Repository } from "$types";
 </script>
@@ -9,6 +8,7 @@
 <script lang="ts">
     export let name: Name;
     export let repository: Repository;
+    export let version: string;
 
     const options = {
         // root: window,
@@ -20,7 +20,7 @@
 
     function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
         if (e.target) {
-            e.target.dataset.pos = String(e.detail);
+            e.target.dataset.pos = String(e.detail.toFixed(0));
             e.target.style.transform = `translate(${e.detail}px)`;
         }
     }
@@ -44,8 +44,7 @@
 
 <header>
     <h1>
-        <Gh {repository} />
-        {name}
+        <a href={repository.url}>{name}@{version}</a>
     </h1>
 </header>
 
