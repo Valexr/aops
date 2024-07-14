@@ -57,6 +57,8 @@
         {/each}
     </ul>
 
+    <h3 id="test" use:aops data-aops-anim="fade-left">TEST</h3>
+
     <img
         width="500"
         use:aops={options}
@@ -71,7 +73,7 @@
         </section>
     {/each}
 
-    <div id="test" use:aops={options} on:scroll={scroll}></div>
+    <div use:aops={options} on:scroll={scroll}></div>
 
     <img
         width="500"

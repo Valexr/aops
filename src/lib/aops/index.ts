@@ -34,9 +34,9 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
 
             const scroll = (scrollY || scrollTop) - (top - rootHeight + targetHeight)
             const position = clamp(targetWidth, scroll, rootWidth - (offset ? targetWidth : offsetWidth))
-
+            // if (target.id === 'test') console.log(scroll, targetWidth, offsetWidth)
             target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
-            target.dataset.aops = position > targetWidth ? 'v' : 'h'
+            target.dataset.aops = (position || scroll) > targetWidth ? 'v' : 'h'
         }
     }
 
