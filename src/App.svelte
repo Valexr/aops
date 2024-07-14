@@ -49,15 +49,15 @@
 </header>
 
 <main>
-    <section><h2>Scroll<br />↓</h2></section>
+    <section>
+        <h2 use:aops data-aops-anim="slide-down">Scroll<br />↓</h2>
+    </section>
 
     <ul>
         {#each fades as fade}
             <li id={fade} data-aops-anim={fade} use:aops={options} />
         {/each}
     </ul>
-
-    <h3 id="test" use:aops data-aops-anim="fade-left">TEST</h3>
 
     <img
         width="500"
@@ -87,7 +87,9 @@
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
     {/each}
 
-    <section><h2>↑<br />Scroll</h2></section>
+    <section>
+        <h2 use:aops data-aops-anim="slide-up">↑<br />Scroll</h2>
+    </section>
 </main>
 
 <footer>

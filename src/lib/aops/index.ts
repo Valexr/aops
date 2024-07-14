@@ -1,4 +1,4 @@
-import { clamp, debounce } from './utils'
+import { clamp, offtop } from './utils'
 import type { Options } from '$types'
 
 const intersected = new Set<HTMLElement>()
@@ -19,10 +19,9 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
         const { innerHeight: wH, innerWidth: wW, offsetHeight: rH, offsetWidth: rW, scrollY, scrollTop } = root
 
         for (const [_, target] of intersected.entries()) {
-            const { offsetTop: targetTop, offsetLeft: targetLeft, offsetHeight, offsetWidth } = target
-            const { offsetTop: parentTop } = target.offsetParent as HTMLElement
+            const { offsetLeft: targetLeft, offsetHeight, offsetWidth } = target
 
-            const top = Math.max(targetTop, parentTop)
+            const top = offtop(root, target)
             const anchor = 1 - (options?.anchor || 0)
             const offset = options?.offset || 0
 
@@ -34,7 +33,7 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
 
             const scroll = (scrollY || scrollTop) - (top - rootHeight + targetHeight)
             const position = clamp(targetWidth, scroll, rootWidth - (offset ? targetWidth : offsetWidth))
-            // if (target.id === 'test') console.log(scroll, targetWidth, offsetWidth)
+            // if (target.id === 'test') console.log(root, target, top)
             target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
             target.dataset.aops = (position || scroll) > targetWidth ? 'v' : 'h'
         }
