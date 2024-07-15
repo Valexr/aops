@@ -20,3 +20,15 @@ export function debounce(cb: (...args: any) => void, ms = 0, timer?: NodeJS.Time
         timer = setTimeout(cb, ms, ...args);
     }
 }
+
+export function throttle(fn: (args: any) => void, ms = 50, th: boolean | number = true): (args: any) => void {
+    let tm = 0;
+    return th
+        ? (args) => {
+            const now = performance.now();
+            if (now - tm >= ms) {
+                fn(args);
+                tm = now;
+            }
+        } : (args) => fn(args);
+}

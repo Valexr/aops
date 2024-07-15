@@ -5,14 +5,20 @@ const intersected = new Set<HTMLElement>()
 
 export default function (node: HTMLElement, options?: Partial<Options>) {
     let root: (Window & HTMLElement) | (Window & typeof globalThis) = options?.root || window
-
-    intersected.add(node)
+    let anchor = 1 - (options?.anchor || 0)
+    let offset = options?.offset || 0
 
     update(options)
 
     function update(options?: Partial<Options>) {
-        root = options?.root || window
-        root.addEventListener('scroll', aops)
+        if (options) {
+            root = options?.root || window
+            anchor = 1 - (options?.anchor || 0)
+            offset = options?.offset || 0
+
+            intersected.add(node)
+            root.addEventListener('scroll', aops)
+        }
     }
 
     function aops() {
@@ -21,9 +27,7 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
         for (const [_, target] of intersected.entries()) {
             const { offsetLeft: targetLeft, offsetHeight, offsetWidth } = target
 
-            const top = offtop(root, target)
-            const anchor = 1 - (options?.anchor || 0)
-            const offset = options?.offset || 0
+            const offTop = offtop(root, target)
 
             const rootHeight = (wH || rH) * anchor
             const rootWidth = (wW || rW) - targetLeft
@@ -31,11 +35,11 @@ export default function (node: HTMLElement, options?: Partial<Options>) {
             const targetHeight = offsetHeight * anchor
             const targetWidth = offsetWidth * offset
 
-            const scroll = (scrollY || scrollTop) - (top - rootHeight + targetHeight)
-            const position = clamp(targetWidth, scroll, rootWidth - (offset ? targetWidth : offsetWidth))
-            // if (target.id === 'test') console.log(root, target, top)
+            const scroll = (scrollY || scrollTop) - (offTop - rootHeight + targetHeight)
+            const position = clamp(targetWidth, scroll, rootWidth + (targetWidth || -offsetWidth))
+
             target.dispatchEvent(new CustomEvent('scroll', { detail: position }))
-            target.dataset.aops = (position || scroll) > targetWidth ? 'v' : 'h'
+            target.dataset.aops = position > targetWidth ? 'v' : 'h'
         }
     }
 

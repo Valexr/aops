@@ -14,7 +14,7 @@
         // root: window,
         // rootMargin: '200px',
         // threshold: 1,
-        anchor: 0,
+        anchor: 0.5,
         offset: 0,
     };
 
@@ -50,7 +50,7 @@
 
 <main>
     <section>
-        <h2 use:aops data-aops-anim="slide-down">Scroll<br />↓</h2>
+        <h2 id="h2" use:aops data-aops-anim="slide-down">Scroll<br />↓</h2>
     </section>
 
     <ul>
@@ -60,6 +60,7 @@
     </ul>
 
     <img
+        id="zoom-in"
         width="500"
         use:aops={options}
         data-aops-anim="zoom-in"
@@ -69,13 +70,14 @@
 
     {#each { length: 3 } as it, i}
         <section class="fixed">
-            <div use:aops={options} on:scroll={scroll}></div>
+            <div id="fixed" use:aops={options} on:scroll={scroll}></div>
         </section>
     {/each}
 
-    <div use:aops={options} on:scroll={scroll}></div>
+    <div id="test" use:aops={{ offset: -1 }} on:scroll={scroll}></div>
 
     <img
+        id="zoom-out"
         width="500"
         use:aops={options}
         data-aops-anim="zoom-out"
@@ -88,7 +90,7 @@
     {/each}
 
     <section>
-        <h2 use:aops data-aops-anim="slide-up">↑<br />Scroll</h2>
+        <h2 id="h2" use:aops data-aops-anim="slide-up">↑<br />Scroll</h2>
     </section>
 </main>
 
