@@ -15,7 +15,7 @@
         // rootMargin: '200px',
         // threshold: 1,
         anchor: 0.5,
-        offset: 0,
+        offset: 1,
     };
 
     function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
@@ -53,8 +53,10 @@
         <h2 id="h2" use:aops data-aops-anim="slide-down">Scroll<br />↓</h2>
     </section>
 
+    <h2 use:aops data-aops-anim="slide-down">Animated</h2>
+
     <ul>
-        {#each fades as fade}
+        {#each fades as fade, i}
             <li id={fade} data-aops-anim={fade} use:aops={options} />
         {/each}
     </ul>
@@ -74,7 +76,7 @@
         </section>
     {/each}
 
-    <div id="test" use:aops={{ offset: -1 }} on:scroll={scroll}></div>
+    <div id="test" use:aops on:scroll={scroll}></div>
 
     <img
         id="zoom-out"
@@ -85,7 +87,7 @@
         src="https://images.unsplash.com/photo-1547433171-98eb433cc6ff?w=1072"
     />
 
-    {#each slides as slide}
+    {#each slides as slide, i}
         <div id={slide} data-aops-anim={slide} use:aops={options}></div>
     {/each}
 
@@ -110,8 +112,8 @@
             Offset
             <input
                 type="number"
-                min="-1"
-                max="0"
+                min="0"
+                max="1"
                 step="0.01"
                 bind:value={options.offset}
             />
