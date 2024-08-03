@@ -63,7 +63,7 @@
 
     <img
         id="zoom-in"
-        width="500"
+        width="300"
         use:aops={options}
         data-aops-anim="zoom-in"
         alt="big"
@@ -80,7 +80,7 @@
 
     <img
         id="zoom-out"
-        width="500"
+        width="300"
         use:aops={options}
         data-aops-anim="zoom-out"
         alt="big"
