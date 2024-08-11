@@ -15,7 +15,7 @@ const svelteOptions = {
     compilerOptions: {
         dev: DEV,
         css: 'external',
-        immutable: true
+        // immutable: true
     },
     preprocess: [
         sveltePreprocess({

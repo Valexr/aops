@@ -10,21 +10,6 @@
     export let repository: Repository;
     export let version: string;
 
-    const options = {
-        // root: window,
-        // rootMargin: '200px',
-        // threshold: 1,
-        anchor: 0.5,
-        offset: 1,
-    };
-
-    function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
-        if (e.target) {
-            e.target.dataset.pos = String(e.detail.toFixed(0));
-            e.target.style.transform = `translate(${e.detail}px)`;
-        }
-    }
-
     const fades = [
         "fade-up",
         "fade-down",
@@ -36,6 +21,21 @@
         "fade-down-left",
     ];
     const slides = ["slide-up", "slide-down", "slide-right", "slide-left"];
+
+    let options = {
+        // root: window,
+        // rootMargin: '200px',
+        // threshold: 1,
+        anchor: 0,
+        offset: 1,
+    };
+
+    function scroll(e: CustomEvent<number> & { target: HTMLElement }) {
+        if (e.target) {
+            e.target.dataset.pos = String(e.detail.toFixed(0));
+            e.target.style.transform = `translate(${e.detail}px)`;
+        }
+    }
 </script>
 
 <svelte:head>
@@ -76,7 +76,7 @@
         </section>
     {/each}
 
-    <div id="test" use:aops on:scroll={scroll}></div>
+    <div id="test" use:aops={options} on:scroll={scroll}></div>
 
     <img
         id="zoom-out"
