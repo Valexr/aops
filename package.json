@@ -23,7 +23,7 @@
         "url": "https://github.com/Valexr/aops.git"
     },
     "devDependencies": {
-        "@types/node": "^22.5.2",
+        "@types/node": "^22.5.4",
         "@valexr/aops": "^0.3.0",
         "esbuild": "^0.23.1",
         "esbuild-svelte": "^0.8.1",
